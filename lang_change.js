@@ -1,46 +1,46 @@
 (function($) {
-    var language = "en";
+    var language = "en", validLanguage = {
+        'en' : true,
+        'th' : true
+    };
     window.setLang = function(newLang) {
-        if(newLang !== 'en' && newLang !== 'th')
-            return Core.error('valid inputs are "en" or "th"');
-        if(language === newLang)
+        if (validLanguage[newLang])
+            return console && console.error('valid inputs are "en" or "th"');
+        if (language === newLang)
             return;
         language = newLang;
         $('[data-th-label]').each(function() {
-        var $this = $(this);
-        if(!$this.data('en-label') && newLang === 'th')
-        $this.data('en-label', $this.text());
-        $this.text($this.data(newLang + '-label'));
-        })[newLang==='th'?'addClass':'removeClass']('th-style');
+            var $this = $(this);
+            if (!$this.data('en-label') && newLang === 'th')
+                $this.data('en-label', $this.text());
+            $this.text($this.data(newLang + '-label'));
+        }).toggleClass('th-style');
     };
     window.getLang = function() {
         return language;
     };
-    var updateLang = window.updateLang = function(ancestor) {
+    var updateTooltip = function(ancestor) {
         ancestor = ancestor || null;
         $('[en-title]', ancestor).tooltip({
             placement : 'bottom',
             title : function() {
-                return $(this).attr(window.getLang() + '-title');
+                return $(this).attr(language + '-title');
             }
         });
-        $('[data-th-label]',ancestor).each(function() {
-        var $this = $(this),currentLang=window.getLang();
-        if(currentLang === 'th' && !$this.data('en-label'))
-        $this.data('en-label', $this.text()).text($this.data(currentLang + '-label'));
-        })[window.getLang()==='th'?'addClass':'removeClass']('th-style');
-    }
+    };
+    var updateLang = window.updateLang = function(ancestor) {
+        ancestor = ancestor || null;
+        updateTooltip(ancestor);
+        $('[data-th-label]', ancestor).each(function() {
+            var $this = $(this);
+            if (language === 'th' && !$this.data('en-label'))
+                $this.data('en-label', $this.text()).text($this.data(language + '-label'));
+        }).addClass(language === 'th' ? 'th-style' : '');
+    };
     $.fn.updateLang = function() {
         return this.each(function() {
             updateLang(this);
-        })
-    };
-    $(document).ready(function() {
-        $('[en-title]').tooltip({
-            placement : 'bottom',
-            title : function() {
-                return $(this).attr(window.getLang() + '-title');
-            }
         });
-    });
+    };
+    $(document).ready(updateTooltip);
 })(jQuery);
