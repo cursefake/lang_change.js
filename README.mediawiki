@@ -3,8 +3,8 @@
 A small js module that enables language toggling by using plain html syntax. The module requires jQuery and bootstrap.js. Made for Thai and English by default, can be easily changed to other.
 
 ===Requirements===
-jQuery 1.6 or higher
-bootstrap.js 2.0 or higher
+* jQuery 1.6 or higher
+* bootstrap.js 2.0 or higher
 
 ===HTML Usage===
 All you have to do with html is just to add predefined attibutes to html
