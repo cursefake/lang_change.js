@@ -1,0 +1,20 @@
+==lang_change.js==
+===Description===
+A small js module that enables language toggling by using plain html syntax. The module requires jQuery and bootstrap.js. Made for Thai and English by default, can be easily changed to other.
+
+===Requirements===
+jQuery 1.6 or higher
+bootstrap.js 2.0 or higher
+
+===HTML Usage===
+All you have to do with html is just to add predefined attibutes to html
+* en-title and th-title to replace html's title attribute
+* th-label for an alternative text in Thai
+* en-title, no need just put it in as DOM text.
+* the class th-style will be toggled automatically according to the current language in case you want to modify font for Thai language
+
+===JS API===
+* use window.setLang('en'|'th') to set language
+* use window.getLang() to get the current language.
+* anytime new html DOM elements are added, use window.updateLang(rootElementOfTheChange) or $('select the root element of the change').updateLang() to update the text corresponding to the current language automatically.
+
