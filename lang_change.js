@@ -1,4 +1,5 @@
 (function($) {
+//hello world
     var language = "en", validLanguage = {
         'en' : true,
         'th' : true
